@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fb-webadmin
+  namespace: default
+  labels:
+    app: fb-webadmin
+spec:
+  selector:
+    matchLabels:
+      app: fb-webadmin
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: fb-webadmin
+    spec:
+      containers:
+        - name: fb-webadmin
+          image: marianaldenhoevel/firebirdwebadmin
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          ports:
+            - containerPort: 80
+              name: fb-webadmin
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fb-webadmin
+  namespace: default
+spec:
+  selector:
+    app: fb-webadmin
+  type: LoadBalancer
+  ports:
+    - name: fb-webadmin
+      port: 80
+      targetPort: 80
+      protocol: TCP
+      #nodePort: 33001
