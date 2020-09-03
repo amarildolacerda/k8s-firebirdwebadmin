@@ -7,13 +7,13 @@ Utiliza o docker:  marianaldenhoevel/firebirdwebadmin
 
 
 para subir o Deployment no Kubernetes:
-    kubectl apply -f firebirdwebadmin.yaml
+*    kubectl apply -f firebirdwebadmin.yaml
     
 para acesssar o terminal do POD:
-    kubectl exec --stdin --tty  <MEUPODE> -- /bin/bash
+*    kubectl exec --stdin --tty  <MEUPODE> -- /bin/bash
   
 para ver MeusPods:
-    kubectl get pods --output=wide
+*    kubectl get pods --output=wide
     
 para ver o Services
-    kubectl get services
+*    kubectl get services
