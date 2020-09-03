@@ -1,4 +1,8 @@
-# k8s-firebirdwebadmin - Deployment Firebird para Kubernets
+# k8s-firebirdwebadmin - Deployment Firebird para Kubernets 
+
+Ao fazer APPLY será criado um serviço no Kubenetes com nome:  fb-webadmin acessível pela porta 80;
+
+
 
 
 Cria serviço na porta 80 para interface de administração remota firebird.
